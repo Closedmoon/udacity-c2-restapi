@@ -29,7 +29,27 @@ router.patch('/:id',
     requireAuth, 
     async (req: Request, res: Response) => {
         //@TODO try it yourself
-        res.send(500).send("not implemented")
+        const caption = req.body.caption;
+        const filename = req.body.url;
+
+        if(!caption) {
+            res.status(400).send({message : "Caption is not present"});
+        }
+
+        if(!filename) {
+            res.status(400).send({message : "Filename is not present"});
+        }
+
+        let { id } = req.params;
+        const item = await FeedItem.findByPk(id);
+
+        item.caption = caption;
+        item.url = filename;
+
+        await item.save();
+        item.url = AWS.getGetSignedUrl(item.url);
+        res.status(201).send(item);
+        //res.send(500).send("not implemented")
 });
 
 
