@@ -1,15 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var dotenv = require('dotenv');
+dotenv.config();
 exports.config = {
     "dev": {
-        "username": "udagramruttnerdev",
-        "password": "udagramruttnerdev",
-        "database": "udagramruttnerdev",
-        "host": "udagramruttnerdev.c79fzt27bzf6.us-east-2.rds.amazonaws.com",
+        "username": process.env.DB_USERNAME,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_NAME,
+        "host": process.env.DB_HOST,
         "dialect": "postgres",
-        "aws_reigion": "us-east-2",
-        "aws_profile": "default",
-        "aws_media_bucket": "udagram-ruttner-dev"
+        "aws_reigion": process.env.AWS_REGION,
+        "aws_profile": process.env.AWS_PROFILE,
+        "aws_media_bucket": process.env.AWS_MEDIA_BUCKET
     },
     "prod": {
         "username": "",
@@ -17,6 +19,9 @@ exports.config = {
         "database": "udagram_prod",
         "host": "",
         "dialect": "postgres"
+    },
+    "jwt": {
+        "secret": process.env.SECRET
     }
 };
 //# sourceMappingURL=config.js.map
